@@ -3,6 +3,8 @@ package com.mariano.ecommerce.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,9 @@ public abstract class Pessoa implements Serializable {
     private String email;
 
     private String telefone;
+
+    @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Endereco> enderecos = new ArrayList<Endereco>();
 
     public Long getId() {
         return id;
@@ -50,6 +55,14 @@ public abstract class Pessoa implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
     @Override
